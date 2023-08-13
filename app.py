@@ -9,11 +9,14 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 CORS(app, origins="*")
 
-client = MongoClient("mongodb://localhost:27017")
+client = MongoClient("mongodb+srv://farees:Farees123@touchcore.btpzbqa.mongodb.net/")
 db = client["touch_core_db"]
 collection = db["videos"]
 
 UPLOAD_FOLDER = "uploads"
+
+if not os.path.exists("uploads"):
+    os.mkdir("uploads")
 
 
 @app.after_request
