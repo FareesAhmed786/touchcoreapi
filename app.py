@@ -72,5 +72,16 @@ def get_all_videos():
     return video_list
 
 
+@app.get("/video/<video_id>")
+def get_single_videos(video_id):
+    # Get all files from the database
+    video = collection.find_one({"_id": ObjectId(video_id)})
+    if video:
+        filepath = video["video_path"]
+        return send_file(filepath,as_attachment=True)
+    else:
+        return {"success": False, "message": "Failed to find"}
+
+
 if __name__ == '__main__':
     app.run()
